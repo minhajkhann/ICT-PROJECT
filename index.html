@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    
+    <title>Expense Tracker</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#tracker">Expense Tracker</a></li>
+            <li><a href="#taxDetails">Tax Details</a></li> 
+            <li><a href="#Generate Excel">Generate Excel</a></li>
+            <li><a href="#additionalFunctions">Reset tracker</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container" id="about">
+        <center><h1>About Expense Tracker</h1></center>
+        <p class="about-section">Explore a cutting-edge financial management solution with our Expense Tracker. It goes beyond the typical expense tracking tool, serving as a comprehensive guide through the intricacies of the tax landscape in Pakistan. Imagine having a financial companion that not only monitors your income and expenses but also dynamically adjusts tax calculations based on the latest updates in Pakistani tax laws. Recognizing the significance of staying current with tax regulations for effective financial planning, our Expense Tracker provides real-time tax insights.
+
+            What sets us apart? Our system is consistently updated to reflect the most recent tax slabs, deductions, and exemptions in Pakistan's ever-changing tax landscape. Whether you fall below 60, between 60 and 75, or exceed 75, our Expense Tracker ensures precise, up-to-date tax calculations tailored to your specific age group. Immerse yourself in the power of financial education at your fingertips. As you input your financial details, our Expense Tracker calculates expenses and presents a consolidated overview. The user-friendly interface simplifies financial comprehension, empowering you to plan accordingly. Generate personalized reports and export them to Excel for in-depth analysis.
+            
+            Rest easy knowing that your financial management is secure with our Expense Tracker. Robust security measures ensure your data is encrypted and safeguarded at all times. Additionally, our team of experts is readily available to address any queries or concerns you may have. Don't hesitate—sign up for our Expense Tracker today and embark on the journey towards financial freedom and peace of mind..</p>
+    </div>
+    
+
+    <div class="container" id="tracker">
+        <center><h1>Expense Tracker</h1>
+        <div>
+            <label for="incomeInput">Enter Income:</label>
+            <input type="number" id="incomeInput" placeholder="Income">
+            <button onclick="addIncome()">Add Income</button>
+        </div>
+        <div>
+            <label for="expenseNameInput">Expense Name:</label>
+            <input type="text" id="expenseNameInput" placeholder="Expense Name">
+            <label for="expenseInput">Enter Expense:</label>
+            <input type="number" id="expenseInput" placeholder="Expense">
+            <button onclick="addExpense()">Add Expense</button>
+        </div>
+        <ul id="transactionList"></ul>
+        <p>Total Income: PKR<span id="totalIncome">0.00</span></p>
+        <p>Total Expenses: PKR<span id="totalExpense">0.00</span></p>
+        <p>Balance: PKR<span id="balance">0.00</span></p>
+        <p id="statusMessage"></p>
+        </center>
+    </div>
+    <div class="container" id="taxDetails">
+        <h1>Tax Details</h1>
+    
+        <!-- Tax Slabs for Individuals (Below the Age of 60) -->
+        <table class="tax-table">
+            <caption>Below 60</caption>
+            <tr>
+                <td>Up to PKR 400,000</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>From PKR 400,001 to 800,000</td>
+                <td>5%</td>
+            </tr>
+            <tr>
+                <td>From PKR 800,001 to 1,200,000</td>
+                <td>10%</td>
+            </tr>
+            <tr>
+                <td>From PKR 1,200,001 to 2,000,000</td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>From PKR 2,000,001 to 2,500,000</td>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <td>Above 2,500,000</td>
+                <td>25%</td>
+            </tr>
+        </table>
+    
+        <!-- Tax Slabs for Individuals (Above the Age of 60 but below 75) -->
+        <table class="tax-table">
+            <caption>60-75:</caption>
+            <tr>
+                <td>Up to PKR 500,000</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>From PKR 500,001 to 1,000,000</td>
+                <td>5%</td>
+            </tr>
+            <tr>
+                <td>From PKR 1,000,001 to 1,500,000</td>
+                <td>10%</td>
+            </tr>
+            <tr>
+                <td>From PKR 1,500,001 to 2,500,000</td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>From PKR 2,500,001 to 3,000,000</td>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <td>Above 3,000,000</td>
+                <td>25%</td>
+            </tr>
+        </table>
+    
+        <!-- Tax Slabs for Individuals (Above the Age of 75) -->
+        <table class="tax-table">
+            <caption>Above 75:</caption>
+            <tr>
+                <td>Up to PKR 750,000</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>From PKR 750,001 to 1,500,000</td>
+                <td>5%</td>
+            </tr>
+            <tr>
+                <td>From PKR 1,500,001 to 2,500,000</td>
+                <td>10%</td>
+            </tr>
+            <tr>
+                <td>From PKR 2,500,001 to 3,000,000</td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>From PKR 3,000,001 to 4,000,000</td>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <td>Above 4,000,000</td>
+                <td>25%</td>
+            </tr>
+        </table>
+    
+        <!-- "Calculate Tax" button -->
+        <button class="calculate-button" onclick="calculateTaxAndAddToExpense()">Calculate Tax</button>
+    </div>
+    
+    <div class="container" id="Generate Excel">
+        <center>
+            <h1>Generate Excel</h1>
+            <button onclick="generateExcel()">Generate Excel</button>
+        </center>
+    </div>
+
+    <div class="container" id="additionalFunctions">
+        <center>
+        <h1>Reset tracker</h1>
+        <button onclick="resetTracker()">Reset Tracker</button>
+        </center> 
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
